@@ -15,13 +15,13 @@ const iFome = () => {
                 icon={<Entypo name="home" size={24} color="white" />}
                 href={'/'}
                 Titulo={'iFome'}
-                cor={'#E11515'}
+                cor={'#FF5733'}
             />
             <View style={styles.container}>
-                <View style={styles.littleCar}>
-                    <Link href={'iFome/carrinho'} style={styles.littleCar}>
-                        <AntDesign name="shoppingcart" size={24} color="#E11515" />
-                        <Text style={{ marginLeft: 4 }}>{carrinho} itens</Text>
+                <View style={styles.cartContainer}>
+                    <Link href={'iFome/carrinho'} style={styles.cartLink}>
+                        <AntDesign name="shoppingcart" size={24} color="#FF5733" />
+                        <Text style={styles.cartText}>{carrinho} itens</Text>
                     </Link>
                 </View>
                 <FlatList
@@ -31,31 +31,29 @@ const iFome = () => {
                     renderItem={({ item }) => (
                         <View style={styles.card}>
                             <Image
-                                style={styles.foto}
+                                style={styles.image}
                                 source={{ uri: item.imagem }}
                             />
                             <View style={styles.info}>
-                                <View>
-                                    <Text style={styles.titulo}>{item.nome}</Text>
-                                    {/* Alterando o subtítulo para 'Lanchonete do Kauã' */}
-                                    <Text style={styles.subtitulo}>Lanchonete do Kauã</Text>
-                                </View>
-                                <Text style={styles.p}>{item.descricao}</Text>
-                                <View style={styles.bottomInfo}>
-                                    <Text style={styles.valor}>R${item.valor.toFixed(2).replace('.', ',')} </Text>
-                                    <View style={styles.qtdContainer}>
+                                <Text style={styles.title}>{item.nome}</Text>
+                                <Text style={styles.subtitle}>Lanchonete do Kauã</Text>
+                                <Text style={styles.description}>{item.descricao}</Text>
+                                <View style={styles.priceContainer}>
+                                    <Text style={styles.price}>R${item.valor.toFixed(2).replace('.', ',')}</Text>
+                                    <View style={styles.quantityContainer}>
                                         <Pressable onPress={() => alterarQuantidade(item.id, 'decrementar')}>
-                                            <Entypo name="minus" size={20} color="red" />
+                                            <Entypo name="minus" size={24} color="#FF5733" />
                                         </Pressable>
-                                        <Text style={styles.qtdbox}>{item.quantidade}</Text>
+                                        <Text style={styles.quantity}>{item.quantidade}</Text>
                                         <Pressable onPress={() => alterarQuantidade(item.id, 'incrementar')}>
-                                            <Entypo name="plus" size={20} color="red" />
+                                            <Entypo name="plus" size={24} color="#FF5733" />
                                         </Pressable>
                                     </View>
                                 </View>
                             </View>
                         </View>
                     )}
+                    contentContainerStyle={styles.listContainer}
                 />
             </View>
         </>
@@ -65,81 +63,93 @@ const iFome = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#FAFAFA',
+        paddingHorizontal: 16,
+        paddingTop: 10,
     },
-    foto: {
-        width: 100,
-        height: 100,
-        borderRadius: 8,
-        resizeMode: 'contain',
-    },
-    card: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        justifyContent: 'space-around',
-        backgroundColor: 'white',
-        marginVertical: 3,
-        marginHorizontal: 16,
-        backgroundColor: 'white',
-        borderRadius: 8,
-        padding: 10,
-        alignItems: 'center',
-        elevation: 1,
-        shadowOpacity: 0.18,
-        shadowRadius: 8,
-        shadowOffset: {
-            width: 1,
-            height: 2,
-        }
-    },
-    info: {
-        width: 220,
-        gap: 4
-    },
-    titulo: {
-        fontWeight: "bold",
-        fontSize: 18,
-    },
-    subtitulo: {
-        fontSize: 13,
-        color: 'gray',
-    },
-    valor: {
-        fontWeight: 'bold',
-        fontSize: 22,
-    },
-    p: {
-        fontSize: 11,
-        minHeight: 26,
-        fontWeight: 'thin',
-    },
-    qtdContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderColor: 'red',
-        borderRadius: 8,
-        borderWidth: 2,
-        justifyContent: 'center',
-        width: 80,
-    },
-    qtdbox: {
-        fontSize: 14,
-        fontWeight: 600,
-        paddingHorizontal: 12,
-        color: 'black',
-        textAlign: 'center',
-    },
-    littleCar: {
+    cartContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        paddingVertical: 3,
-        paddingHorizontal: 12,
+        paddingVertical: 10,
     },
-    bottomInfo: {
+    cartLink: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cartText: {
+        marginLeft: 4,
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#FF5733',
+    },
+    card: {
+        flexDirection: 'row',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 12,
+        padding: 16,
+        marginVertical: 8,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 4 },
+        borderWidth: 1,
+        borderColor: '#FFE6E6', 
+    },
+    image: {
+        width: 100,
+        height: 100,
+        borderRadius: 12,
+        marginRight: 16,
+        borderColor: '#FF5733', 
+        borderWidth: 1,
+    },
+    info: {
+        flex: 1,
+        justifyContent: 'space-between',
+    },
+    title: {
+        fontWeight: "bold",
+        fontSize: 22,
+        color: '#333',
+    },
+    subtitle: {
+        fontSize: 14,
+        color: '#888',
+    },
+    description: {
+        fontSize: 12,
+        color: '#555',
+        marginVertical: 4,
+    },
+    priceContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+    },
+    price: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#FF5733',
+    },
+    quantityContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: '#FF5733',
+        borderRadius: 8,
+        borderWidth: 2,
+        paddingHorizontal: 4,
+        backgroundColor: '#FFE6E6', 
+    },
+    quantity: {
+        fontSize: 14,
+        fontWeight: '600',
+        paddingHorizontal: 12,
+        color: '#333',
+    },
+    listContainer: {
+        paddingBottom: 20,
     },
 });
 
