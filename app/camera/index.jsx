@@ -7,7 +7,7 @@ export default function Camera() {
     const [permissao, pedirPermissao] = useCameraPermissions ()
     const [foto, setFoto] = useState(null)
     const cameraRef = useRef(null)
-    const [Lado, setlado] = useState('back')j
+    const [Lado, setlado] = useState('back')
 
 
     if (!permissao){
